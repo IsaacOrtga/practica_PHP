@@ -1,11 +1,6 @@
 <?php
 include 'classConexion.php';
 $conectar = new conexion();
-if (isset($_GET['search'])) {
-	$info = $_GET['search'];
-	$total_consultas = "select * from users where users.name_u='$info' ";
-	$conectar->results($total_consultas);
-}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -21,13 +16,77 @@ if (isset($_GET['search'])) {
 	<form action="busqueda.php" method="Get">
 		<input type="text" id="mySearch" name="search" placeholder="Buscar..">
 		<button type="submit">Buscar</button>
-		<ul>
+		<table border='1'>
+			<tr>
+				<th>id</th>
+				<th>Name</th>
+				<th>Password</th>
+			</tr>
 			<?php
-			foreach ($data as $value => $info) {
-				echo '<li>' . $value . '<li>';
+			if (isset($_GET['search'])) {
+				$info = $_GET['search'];
+				$consulta = "select * from users where users.name_u='$info' ";
+				$conectar->consulta($consulta);
+				$mostrar = $conectar->results();
+				foreach ((array) $mostrar as $row) {
+					echo '<tr>';
+					echo '<td>' . $row['user_id'] . '</td>';
+					echo '<td>' . $row['name_u'] . '</td>';
+					echo '<td>' . $row['password_u'] . '</td>';
+					echo '</tr>';
+				}
 			}
 			?>
-		</ul>
+		</table>
+		<table border='1'>
+			<tr>
+				<th>id</th>
+				<th>Name</th>
+				<th>Password</th>
+			</tr>
+			<?php
+			if (isset($_GET['search'])) {
+				$info = $_GET['search'];
+				$consulta = "select * from users where users.name_u='$info' ";
+				$conectar->consulta($consulta);
+				$mostrar = $conectar->results();
+				while (isset($info)) {
+					echo '<tr>';
+					echo '<td>' . $row['user_id'] . '</td>';
+					echo '<td>' . $row['name_u'] . '</td>';
+					echo '<td>' . $row['password_u'] . '</td>';
+					echo '</tr>';
+					break;
+				}
+			}
+			?>
+		</table>
+		<table border='1'>
+			<tr>
+				<th>id</th>
+				<th>Name</th>
+				<th>Password</th>
+			</tr>
+			<?php
+
+			if (isset($_GET['search'])) {
+				$info = $_GET['search'];
+				$consulta = "select * from users where users.name_u='$info' ";
+				$conectar->consulta($consulta);
+				$mostrar = $conectar->results();
+				for ($i = 0; $i < count($mostrar); $i++) {
+					echo '<tr>';
+					echo '<td>' . $row['user_id'] . '</td>';
+					echo '<td>' . $row['name_u'] . '</td>';
+					echo '<td>' . $row['password_u'] . '</td>';
+					echo '</tr>';
+		
+				}
+			}
+
+			?>
+		</table>
 	</form>
 </body>
+
 </html>

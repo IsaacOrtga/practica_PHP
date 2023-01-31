@@ -20,12 +20,12 @@ class Conexion{
   public function num_rows(){
     return $this->consulta->num_rows;
   }
-  public function results($total_consultas){
-    $result = $this->conexion->query($total_consultas);
-    while($data = $result->fetch_assoc()){
-      print_r($data);
+  public function results(){
+    $rows = array();
+    while ($row = mysqli_fetch_array($this->consulta)){
+      $rows[] = $row;
     }
-    return $data;
+    return $rows;
   }
 }
 ?>
